@@ -52,8 +52,8 @@ public class DataLoaderRestful extends DataLoaderBase implements DataLoader {
             RestResponseWrapperModel responseWrapper = restTemplate.getForObject(resourceName, RestResponseWrapperModel.class);
             db = createDatabaseFromDataModel(responseWrapper);
         } catch (Throwable e) {
-            throw new DatabaseException("failed to load " + resourceName
-                    + " from classpath", DatabaseException.ISSUE_TYPE.LOAD, e);
+            throw new DatabaseException("failed to load URL=" + resourceName
+                    + " from restService", DatabaseException.ISSUE_TYPE.LOAD, e);
         }
 
         return this;
