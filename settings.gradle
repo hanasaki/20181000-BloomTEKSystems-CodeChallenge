@@ -1,0 +1,27 @@
+/**
+ *
+ * Copyright (C) 2018-*, Frederick Bloom. All rights reserved.
+ *
+ * Licensed: "As-Is" WITHOUT WARRANTIES ANY KIND,
+ * either express or implied.  Permission given to reuse source/object code
+ * so long as credit provided to original author in copied/derived source and
+ * all visible license/credits to the consumer of this code.
+ *
+ */
+rootProject.name = '201809-bloom-teksystems-sdet'
+enableFeaturePreview('STABLE_PUBLISHING')
+def subDirs = rootDir.listFiles(new FileFilter() {
+        public boolean accept(File file) {
+            if (!file.isDirectory()) {
+                return false
+            }
+            if (file.name == 'buildSrc') {
+                return false
+            }
+            return new File(file, 'build.gradle').isFile()
+        }
+    });
+
+subDirs.each { File dir ->
+    include dir.name
+}

@@ -1,0 +1,5 @@
+## YAML Template.
+---
+spring:
+  application:
+    name: 201809-bloom-teksystems-sdet

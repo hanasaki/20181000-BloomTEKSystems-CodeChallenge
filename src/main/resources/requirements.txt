@@ -1,0 +1,37 @@
+= :: Spring-Boot :: ${spring-boot.version}
+= ${application.title} ${application.version}
+/\ \                                      /\ \
+\ \ \___       __       ___       __      \_\ \
+ \ \  _ `\   /'__`\   /' _ `\   /'__`\    /'_` \   /'__`\ /' _ `\
+  \ \ \ \ \ /\ \L\.\_ /\ \/\ \ /\ \L\.\_ /\ \L\ \ /\  __/ /\ \/\ \
+   \ \_\ \_\\ \__/.\_\\ \_\ \_\\ \__/.\_\\ \___,_\\ \____\\ \_\ \_\
+    \/_/\/_/ \/__/\/_/ \/_/\/_/ \/__/\/_/ \/__,_ / \/____/ \/_/\/_/
+====================================================
+201809-201810 : TEKSystems Coding Challenge : FrederickBloom+TEKS201809@gmail.com
+====================================================
+Title   : Standardized QA SDET Code examination
+Version : 1.0
+
+Instructions
+Candidate must write this examination in one of the highlighted language(s).
+Candidate must return test in the appropriate format or package associated to the highlighted language(s).
+Candidate must write clear and understandable code.
+Candidate must write code that compiles or/and executes without error(s).
+Candidate must write code that anticipates user entry error(s), such as formatting and data types.
+
+Language        : Java
+Delivery Format : Project package & *.java
+
+Once the code is written, the source code must be submitted without its byte code; please remove any files archiving byte code (jar, war, "*.class" and the bin/target directory.
+Code can be zip'ed or pushed to github; send either the zip package or github link to your Recruiter.
+
+Description
+    A) Using the provide REST service, create a program that returns both largest city and capital based on user input for state name or state abbreviation.
+    B) Write several tests that validate positive and negative scenario’s
+
+User input can be done in any format, including but not limited to prompts and console entries.
+
+Program must continue running until the user exits the program.
+
+Note        : Do not use any other web services or data other then the one provide.
+Webservice  : http://services.groupkt.com/state/get/USA/all

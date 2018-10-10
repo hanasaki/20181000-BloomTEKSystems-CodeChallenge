@@ -1,0 +1,370 @@
+/**
+ *
+ * Copyright (C) 2018-*, Frederick Bloom. All rights reserved.
+ *
+ * Licensed: "As-Is" WITHOUT WARRANTIES ANY KIND,
+ * either express or implied.  Permission given to reuse source/object code
+ * so long as credit provided to original author in copied/derived source and
+ * all visible license/credits to the consumer of this code.
+ *
+ */
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+//
+ext.isSnapshot = version.endsWith("-SNAPSHOT")
+
+task printVersion {
+    println "JDK.Version=${JavaVersion.current()} Gradle.Version=${project.gradle.gradleVersion}"
+    println "Building => ${project.group}:${project.name}:${project.version} // src/target=${sourceCompatibility}/${targetCompatibility}"
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral();
+    maven { url "https://plugins.gradle.org/m2" }
+}
+
+jar {
+    manifest {
+        attributes(
+            'Manifest-Version': '1.0',
+            'Main-Class': 'com.Main',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version,
+            'Build-Time-ISO-8601': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ss"),
+            'Built-By': System.getProperty('user.name'),
+            'Built-JDK': System.getProperty('java.version'),
+            'Built-Host': InetAddress.getLocalHost().getCanonicalHostName(),
+            'OS-Name': System.getProperties().get("os.name"),
+            'Source-Compatibility': project.sourceCompatibility,
+            'Target-Compatibility': project.targetCompatibility,
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}
+task jarMainSources(type: Jar, dependsOn: classes, description: 'Creates a jar from the source files.') {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+    manifest {
+        attributes(
+            'Manifest-Version': '1.0',
+            'Main-Class': 'com.Main',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version,
+            'Build-Time-ISO-8601': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ss"),
+            'Built-By': System.getProperty('user.name'),
+            'Built-JDK': System.getProperty('java.version'),
+                        'Built-Host-Name': InetAddress.getLocalHost().getCanonicalHostName(),
+            'Built-Host-IP': InetAddress.getLocalHost().getHostAddress(),
+            'OS-Name': System.getProperties().get("os.name"),
+            'Source-Compatibility': project.sourceCompatibility,
+            'Target-Compatibility': project.targetCompatibility,
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}
+//task javadocp(type: Javadoc) {
+//    source subprojects.sourceSets*.main*.allJava
+//    classpath = files(subprojects.sourceSets*.main*.compileClasspath)
+//    options.docletpath = configurations.javadoclet.files.asType(List)
+//    options.doclet = 'org.umlgraph.doclet.UmlGraphDoc'
+//    options.classpath subprojects.sourceSets*.main*.classesDir
+//    options.memberLevel = 'PRIVATE'
+//    // These result in the option not being passed at all.
+//    options.addStringOption('inferrel', null)
+//    options.addStringOption('inferrel')
+//    // This results in an empty string as an argument to the option, which is invalid.
+//    options.addStringOption('inferrel', '')
+//}
+// https://docs.gradle.org/current/javadoc/org/gradle/external/javadoc/MinimalJavadocOptions.html
+compileJava {
+    options.compilerArgs << "-Xlint:all"
+}
+
+javadoc {
+    options.encoding = 'UTF-8'
+    options.memberLevel = 'PROTECTED'
+    //    options.addStringOption 'Xdoclint:syntax,html,reference', '-quiet'
+    //    options.addStringOption 'Xdoclint:akll'
+    //    if (javaVersion.isJava8Compatible()) {
+    //    options.addStringOption 'Xdoclint:syntax,reference', '-warn'
+    //    options.addStringOption 'Xdoclint:syntax,html,reference', '-warn'
+    options.addStringOption 'doclint:all'
+    //    }
+    //    options.addStringOption "stylesheetfile", stylesheetFile.absolutePath
+    //    source publicGroovyProjects.collect {project -> project.sourceSets.main.allJava }
+    //    options.footer = 'hanaden.com'
+    //    options.bottom = 'bottomtext'
+    //    options.header ="dddddddddddddddd"
+}
+task jarMainJavaDoc(type: Jar, dependsOn: javadoc) {
+    //    options.addStringOption('encoding', 'UTF-8')
+    //    options.addBooleanOption('html5', true)
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+    //    if(JavaVersion.current().isJava9Compatible()) {
+    //        options.addBooleanOption('html4', true)
+    //    }
+    manifest {
+        attributes(
+            'Manifest-Version': '1.0',
+            'Main-Class': 'com.Main',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version,
+            'Build-Time-ISO-8601': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ss"),
+            'Built-By': System.getProperty('user.name'),
+            'Built-JDK': System.getProperty('java.version'),
+                        'Built-Host-Name': InetAddress.getLocalHost().getCanonicalHostName(),
+            'Built-Host-IP': InetAddress.getLocalHost().getHostAddress(),
+            'OS-Name': System.getProperties().get("os.name"),
+            'Source-Compatibility': project.sourceCompatibility,
+            'Target-Compatibility': project.targetCompatibility,
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}
+task jarTest(type: Jar, dependsOn: classes, description: 'Creates a jar from the source files.') {
+    classifier = 'test'
+    from sourceSets.test.output
+    manifest {
+        attributes(
+            'Manifest-Version': '1.0',
+            'Main-Class': 'com.Main',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version,
+            'Build-Time-ISO-8601': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ss"),
+            'Built-By': System.getProperty('user.name'),
+            'Built-JDK': System.getProperty('java.version'),
+            'Built-Host-Name': InetAddress.getLocalHost().getCanonicalHostName(),
+            'Built-Host-IP': InetAddress.getLocalHost().getHostAddress(),
+            'OS-Name': System.getProperties().get("os.name"),
+            'Source-Compatibility': project.sourceCompatibility,
+            'Target-Compatibility': project.targetCompatibility,
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}
+task jarTestSources(type: Jar, dependsOn: classes, description: 'Creates a jar from the source test files.') {
+    classifier = 'test-sources'
+    from sourceSets.test.allSource
+    manifest {
+        attributes(
+            'Manifest-Version': '1.0',
+            'Main-Class': 'com.Main',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version,
+            'Build-Time-ISO-8601': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ss"),
+            'Built-By': System.getProperty('user.name'),
+            'Built-JDK': System.getProperty('java.version'),
+            'Built-Host-Name': InetAddress.getLocalHost().getCanonicalHostName(),
+            'Built-Host-IP': InetAddress.getLocalHost().getHostAddress(),
+            'OS-Name': System.getProperties().get("os.name"),
+            'Source-Compatibility': project.sourceCompatibility,
+            'Target-Compatibility': project.targetCompatibility,
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}
+
+compileTestJava {
+    sourceCompatibility = 1.9
+    targetCompatibility = 1.9
+    options.compilerArgs += '-parameters'
+}
+
+
+test {
+    useJUnitPlatform()
+    failFast = true
+    //    debug = true
+    //
+    afterTest { desc, result ->
+        //        logger.quiet "Executed test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+    }
+    //
+    afterSuite { desc, result ->
+        if (!desc.parent) { // will match the outermost suite
+            def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+            def startItem = '|  ', endItem = '  |'
+            def repeatLength = startItem.length() + output.length() + endItem.length()
+            println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+        }
+    }
+    //
+    tasks.withType(Test) {
+        testLogging {
+            //            events 'PASSED', 'FAILED', 'SKIPPED'
+            events 'FAILED', 'SKIPPED'
+
+            showExceptions true
+            showCauses true
+            showStackTraces true
+
+            // set options for log level DEBUG and INFO
+            debug {
+                events   TestLogEvent.FAILED,
+                //                TestLogEvent.STARTED,
+                //                TestLogEvent.PASSED,
+                TestLogEvent.SKIPPED,
+                TestLogEvent.STANDARD_ERROR
+                //                TestLogEvent.STANDARD_OUT
+                exceptionFormat TestExceptionFormat.FULL
+            }
+            info.events = debug.events
+            info.exceptionFormat = debug.exceptionFormat
+        }
+    }
+
+    reports.junitXml.destination="build/junit/test-results"
+    reports.html.destination="build/junit/test-reports"
+
+    options {
+        setExcludeTags(["Framework", "Blocking", "Navigation"] as Set)
+    }
+    // Finally we have access to parallel running for junit 5 tests!
+    maxParallelForks 4
+    // https://docs.gradle.org/current/userguide/jacoco_plugin.html
+    jacoco {
+        append = false
+        enabled = true
+        destinationFile = file("$buildDir/jacoco/test-results/test.exec") // netbeans finds file test.exec
+        classDumpDir = file("$buildDir/jacoco/test-results/classpathdumps")
+    }
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            csv.enabled true
+            html.enabled  true
+            html.destination file("${buildDir}/jacoco/test-reports")
+        }
+    }
+}
+
+artifacts {
+    //    archives jarMain
+    archives jarMainSources
+    archives jarMainJavaDoc
+    archives jarTest
+    archives jarTestSources
+}
+
+task createFolders(description: 'Creates the source folders if they do not exist.') doLast {
+    sourceSets*.allSource*.srcDirs*.each { File srcDir ->
+        if (!srcDir.isDirectory()) {
+            println "Creating source folder: ${srcDir}"
+            srcDir.mkdirs()
+        }
+    }
+}
+
+//createPom.dependsOn build
+
+//===========
+if (plugins.hasPlugin('android') || plugins.hasPlugin('android-library')) {
+    android {
+        defaultConfig {
+            versionName = calculateVersionName()
+            versionCode = calculateVersionCode()
+        }
+
+        afterEvaluate {
+            def autoIncrementVariant = { variant ->
+                if (variant.buildType.name == buildTypes.release.name) { // don't increment on debug builds
+                    variant.preBuild.dependsOn incrementVersion
+                    incrementVersion.doLast {
+                        variant.mergedFlavor.versionName = calculateVersionName()
+                        variant.mergedFlavor.versionCode = calculateVersionCode()
+                    }
+                }
+            }
+            if (plugins.hasPlugin('android')) {
+                applicationVariants.all { variant -> autoIncrementVariant(variant) }
+            }
+            if (plugins.hasPlugin('android-library')) {
+                libraryVariants.all { variant -> autoIncrementVariant(variant) }
+            }
+        }
+    }
+}
+
+
+//================
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact jarMainSources
+            artifact jarMainJavaDoc
+            artifact jarTest
+            artifact jarTestSources
+            afterEvaluate {
+                artifactId = jar.baseName
+            }
+            pom {
+                groupId project.group
+                artifactId project.name
+                version project.version
+                //
+                name = project.name
+                description = 'A concise description of my library'
+                url = 'http://www.example.com/library'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'johnd'
+                        name = 'John Doe'
+                        email = 'john.doe@....com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://....com/my-library.git'
+                    developerConnection = 'scm:git:ssh://...com/my-library.git'
+                    url = 'http://....com/my-library/'
+                }
+            }
+
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username "anonymous"
+            }
+
+            if(project.version.endsWith('-SNAPSHOT')) {
+                url "http://example/artifactory/libs-snapshot-local"
+            } else {
+                url "http://example/artifactory/libs-release-local"
+            }
+        }
+    }
+}
+
+gradle.taskGraph.whenReady { taskGraph ->
+    // Call your methods here using the task graph
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: 'http://myCompanyRepo.com:8081/releases') {
+                authentication(userName: 'admin', password: 'password');
+            }
+            snapshotRepository(url: 'http://myCompanyRepo.com:8081/snapshots') {
+                authentication(userName: 'admin', password: 'password');
+            }
+        }
+    }
+}
+
+defaultTasks 'clean', 'build', 'publishToMavenLocal'
