@@ -7,3 +7,6 @@ should provide a list of command line options
     url not set defaults to using canned data from in the JAR
     url = "internal" => same as not set => use from JAR
     url = "default" =>
+
+NOTE: the program is command-line driven per common conventions.  To run in a loop until the user exits, it would be wrapped in a script.
+Perhaps a bash script.
