@@ -45,7 +45,7 @@ sweeney {
     // tests whether gradle is 2.0 or above
     enforce 'gradle:[4.10.0,4.11)'
     // tests whether the jdk is version 1.9
-    enforce 'jdk:[9,9]:Requires JDK 1.9'
+    enforce 'jdk:[9,11):Requires JDK 9-10'
     //run the rules
     //    validate()
 }
@@ -127,15 +127,15 @@ allprojects {
     }
 }
 
-apply from: 'common.gradle'
+allprojects {
+    //    version = rootProject.version
+    //    group = rootProject.group
+    //    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+    sourceCompatibility = "${javaSrcVersion}"
+    targetCompatibility = "${javaTargetVersion}"
+}
 
-//allprojects {
-//    version = rootProject.version
-//    group = rootProject.group
-//    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-//    //    sourceCompatibility = java.src.version
-//    //    targetCompatibility = java.target.version
-//}
+apply from: 'common.gradle' // comes aftter all projects that sets source/target Compatibility
 
 Properties readVersion() {
     def version = new Properties()
