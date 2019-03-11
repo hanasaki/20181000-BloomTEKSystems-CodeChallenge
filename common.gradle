@@ -39,7 +39,7 @@ jar {
             'OS-Name': System.getProperties().get("os.name"),
             'Source-Compatibility': project.sourceCompatibility,
             'Target-Compatibility': project.targetCompatibility,
-            'Class-Path': configurations.implementation.collect { it.getName() }.join(' ')
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
         )
     }
 }

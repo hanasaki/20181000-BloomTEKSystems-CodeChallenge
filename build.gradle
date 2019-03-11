@@ -41,7 +41,6 @@ buildscript {
 apply plugin: 'base' // To add "clean" task to the root project.
 apply plugin: 'java'
 apply plugin: "jacoco"
-//apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
@@ -102,7 +101,7 @@ subprojects {
 }
 allprojects {
     apply plugin: 'java'
-    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
     group = 'myGroup'
     version = '0.1-SNAPSHOT'
 }
