@@ -43,9 +43,9 @@ apply plugin: 'com.fizzpod.sweeney'
 //}
 sweeney {
     // tests whether gradle is 2.0 or above
-    enforce 'gradle:[4.10.0,4.11)'
+    enforce 'gradle:[5.1.1.0,5.3)'
     // tests whether the jdk is version 1.9
-    enforce 'jdk:[9,11):Requires JDK 9-10'
+    enforce 'jdk:[11,12):Requires JDK 11.*'
     //run the rules
     //    validate()
 }
@@ -93,9 +93,16 @@ subprojects {
     task allDeps(type: DependencyReportTask) {}
     apply from: rootProject.file('common.gradle')
 }
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
 
+    group = 'myGroup'
+    version = '0.1-SNAPSHOT'
+}
 allprojects {
     project.version = rootProject.version
+
     //
     dependencies {
         compile "args4j:args4j:2.3+"

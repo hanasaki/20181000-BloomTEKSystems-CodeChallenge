@@ -220,8 +220,8 @@ test {
         }
     }
 
-    reports.junitXml.destination="build/junit/test-results"
-    reports.html.destination="build/junit/test-reports"
+    //    reports.junitXml.destination="build/junit/test-results"
+    //    reports.html.destination="build/junit/test-reports"
 
     options {
         setExcludeTags(["Framework", "Blocking", "Navigation"] as Set)
@@ -238,7 +238,9 @@ test {
     jacocoTestReport {
         reports {
             xml.enabled true
+            xml.destination file("${buildDir}/jacoco/test-reports/jacocoTestReport.xml")
             csv.enabled true
+            csv.destination file("${buildDir}/jacoco/test-reports/jacocoTestReport.csv")
             html.enabled  true
             html.destination file("${buildDir}/jacoco/test-reports")
         }
