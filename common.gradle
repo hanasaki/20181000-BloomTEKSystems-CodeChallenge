@@ -39,7 +39,7 @@ jar {
             'OS-Name': System.getProperties().get("os.name"),
             'Source-Compatibility': project.sourceCompatibility,
             'Target-Compatibility': project.targetCompatibility,
-            'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
+            'Class-Path': configurations.implementation.collect { it.getName() }.join(' ')
         )
     }
 }
@@ -65,6 +65,7 @@ task jarMainSources(type: Jar, dependsOn: classes, description: 'Creates a jar f
         )
     }
 }
+
 //task javadocp(type: Javadoc) {
 //    source subprojects.sourceSets*.main*.allJava
 //    classpath = files(subprojects.sourceSets*.main*.compileClasspath)
@@ -230,7 +231,7 @@ test {
     maxParallelForks 4
     // https://docs.gradle.org/current/userguide/jacoco_plugin.html
     jacoco {
-        append = false
+        //append = false
         enabled = true
         destinationFile = file("$buildDir/jacoco/test-results/test.exec") // netbeans finds file test.exec
         classDumpDir = file("$buildDir/jacoco/test-results/classpathdumps")

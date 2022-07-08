@@ -9,7 +9,7 @@
  *
  */
 rootProject.name = '201809-bloom-teksystems-sdet'
-enableFeaturePreview('STABLE_PUBLISHING')
+//enableFeaturePreview('STABLE_PUBLISHING')
 def subDirs = rootDir.listFiles(new FileFilter() {
         public boolean accept(File file) {
             if (!file.isDirectory()) {

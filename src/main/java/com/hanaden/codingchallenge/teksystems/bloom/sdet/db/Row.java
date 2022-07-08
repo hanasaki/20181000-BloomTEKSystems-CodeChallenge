@@ -22,6 +22,13 @@ import org.slf4j.LoggerFactory;
  */
 public class Row<T> {
 
+//    record Range(int lo, int hi) {
+//        public Range  {
+//            if (lo > hi) /* referring here to the implicit constructor parameters */ {
+//                throw new IllegalArgumentException(String.format("(%d,%d)", lo, hi));
+//            }
+//        }
+//    }
     final private static Logger LOGGER = LoggerFactory.getLogger(Row.class);
     private final T rowData;
     private final Long index;
