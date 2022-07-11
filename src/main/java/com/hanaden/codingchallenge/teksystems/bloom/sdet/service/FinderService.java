@@ -37,11 +37,25 @@ public interface FinderService {
      */
     public Set<StateModel> findState(final String state);
 
+    /**
+     *
+     */
     public static class CityCapitalResults {
 
+        /**
+         *
+         */
         public Set<String> capital = new TreeSet<>();
+
+        /**
+         *
+         */
         public Set<String> city = new TreeSet<>();
 
+        /**
+         *
+         * @return
+         */
         @Override
         public String toString() {
             String capitals = "[" + capital.stream().map(Object::toString).collect(Collectors.joining(",")) + "]";

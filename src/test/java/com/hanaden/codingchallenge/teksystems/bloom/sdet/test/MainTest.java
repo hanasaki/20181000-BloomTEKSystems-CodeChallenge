@@ -15,6 +15,7 @@ import com.hanaden.codingchallenge.teksystems.bloom.sdet.main.MainCmdLineHandler
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -68,12 +69,18 @@ public class MainTest {
     static public void tearDownTestRun() {
     }
 
+    /**
+     *
+     */
     @Test
     public void doMainFastFailTest() {
         MainCmdLineHandler cmd = MainCmdLineHandler.build(new String[]{});
         cmd.doMain();
     }
 
+    /**
+     *
+     */
     @Test
     public void doMainFastFailNullTest() {
         MainCmdLineHandler cmd = MainCmdLineHandler.build(null);
@@ -81,15 +88,21 @@ public class MainTest {
     }
 
     private void doMain(String args[], boolean shouldFail) throws Throwable {
+        String diagnosticMsg = "ExpectedToFail=" + Boolean.toString(shouldFail);
         try {
+            diagnosticMsg += " " + Arrays.stream(args)
+                    .collect(Collectors.joining(", ", "[", "]"));
             Main.main(args);
         } catch (NullPointerException e) {
             if (!shouldFail) {
                 // rethrow if it shouldn't have failed
+                diagnosticMsg += " failed when not expected to fail.";
                 throw e;
             } else {
-                LOGGER.debug("expected and got : ", e);
+                diagnosticMsg += " expected and got : " + e;
             }
+        } finally {
+            LOGGER.info(diagnosticMsg);
         }
     }
 

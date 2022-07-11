@@ -35,6 +35,9 @@ public class DatabaseException extends RuntimeException {
          *
          */
         LOAD,
+        /**
+         *
+         */
         DATA_VALIDATION
     }
 
@@ -75,6 +78,10 @@ public class DatabaseException extends RuntimeException {
         return type;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getLocalizedMessage() {
         return "Type=" + getIssueType() + " : " + super.getLocalizedMessage();

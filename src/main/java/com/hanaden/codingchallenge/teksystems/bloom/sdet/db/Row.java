@@ -33,6 +33,11 @@ public class Row<T> {
     private final T rowData;
     private final Long index;
 
+    /**
+     *
+     * @param index
+     * @param rowData
+     */
     public Row(long index, T rowData) {
         this.rowData = rowData;
         this.index = index;

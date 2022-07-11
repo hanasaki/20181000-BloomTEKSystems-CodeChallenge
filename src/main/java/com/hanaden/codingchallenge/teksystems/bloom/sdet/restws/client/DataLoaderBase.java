@@ -30,6 +30,10 @@ abstract public class DataLoaderBase implements DataLoader {
      *
      */
     protected final String resourceName;
+
+    /**
+     *
+     */
     protected Database db;
 
     /**
@@ -64,6 +68,11 @@ abstract public class DataLoaderBase implements DataLoader {
         return this;
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     final protected Database createDatabaseFromDataModel(RestResponseWrapperModel model) {
         Database retVal = Database.create(model.getResponseModel());
         retVal.reindex();

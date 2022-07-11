@@ -152,6 +152,11 @@ public class Database implements FinderService {
         return retVal;
     }
 
+    /**
+     *
+     * @param stateToFind
+     * @return
+     */
     @Override
     public Set<StateModel> findState(String stateToFind) {
         Set<StateModel> retVal = new HashSet<>();

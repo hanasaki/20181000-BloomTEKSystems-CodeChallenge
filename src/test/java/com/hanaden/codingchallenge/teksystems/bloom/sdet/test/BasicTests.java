@@ -12,16 +12,16 @@
 package com.hanaden.codingchallenge.teksystems.bloom.sdet.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hanaden.codingchallenge.teksystems.bloom.sdet.restws.client.RestResponseWrapperModel;
 import com.hanaden.codingchallenge.teksystems.bloom.sdet.db.DatabaseException;
 import com.hanaden.codingchallenge.teksystems.bloom.sdet.model.StateModel;
+import com.hanaden.codingchallenge.teksystems.bloom.sdet.restws.client.RestResponseWrapperModel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -215,7 +215,7 @@ public class BasicTests {
         ObjectMapper mapper = new ObjectMapper();
         RestResponseWrapperModel retVal;
         //
-        try (InputStream inStream = this.getClass().getClassLoader().getResourceAsStream(resourceName)) {
+        try ( InputStream inStream = this.getClass().getClassLoader().getResourceAsStream(resourceName)) {
             assertThat(inStream).isNotNull().withFailMessage("inputstream NULL {}", resourceFileNameFail3);
             retVal = mapper.readValue(inStream, RestResponseWrapperModel.class);
             assertThat(retVal).isNotNull();

@@ -68,6 +68,10 @@ public class LargestCityAndCapitolTest {
         assertThat(results.capital.size()).isEqualTo(expectedResultRecordCount);
     }
 
+    /**
+     *
+     * @throws Throwable
+     */
     @Test
     public void happyPathTestFind_Arkansas_Test() throws Throwable {
         //
@@ -95,6 +99,10 @@ public class LargestCityAndCapitolTest {
         assertThat(results.capital.size()).isEqualTo(expectedResultRecordCount);
     }
 
+    /**
+     *
+     * @throws Throwable
+     */
     @Test
     public void happyPathTestFind_Alaska_Test() throws Throwable {
         //
@@ -129,6 +137,10 @@ public class LargestCityAndCapitolTest {
         assertThat(results.capital.contains("Pago Pago")).isTrue();
     }
 
+    /**
+     *
+     * @throws Throwable
+     */
     @Test
     public void failPathTestFind_notFound_Test() throws Throwable {
         //

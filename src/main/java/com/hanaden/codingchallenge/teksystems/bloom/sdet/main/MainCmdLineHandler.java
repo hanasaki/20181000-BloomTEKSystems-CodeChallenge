@@ -31,9 +31,25 @@ import org.slf4j.LoggerFactory;
 public class MainCmdLineHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainCmdLineHandler.class);
+
+    /**
+     *
+     */
     public static String CLASSPATH_JSON_DATA_FILENAME = "data/cannedJSONdata.json";
+
+    /**
+     *
+     */
     public static String FLAG_USE_REST_URL_DEFAULT = "default";
+
+    /**
+     *
+     */
     public static final String REST_URL_DEFAULT = "http://services.groupkt.com/state/get/USA/all";
+
+    /**
+     *
+     */
     public static final String FLAG_USE_INTERANL_JAR_DATAFILE = "internal";
 
     @Option(name = "--url", usage = "URL of restful data service [internal=useCannedDataInJAR, notSet(=internal), value=http://services.groupkt.com/state/get/USA/all]")
@@ -51,6 +67,8 @@ public class MainCmdLineHandler {
 
     /**
      *
+     * @param args
+     * @return
      */
     public static MainCmdLineHandler build(String args[]) {
         MainCmdLineHandler me = new MainCmdLineHandler();
@@ -79,7 +97,7 @@ public class MainCmdLineHandler {
             LOGGER.error(e.getMessage());
             LOGGER.error("java [jarFileName] [options...]");
             // print the list of available options
-            parser.printUsage(System.err);
+//            parser.printUsage(System.err);
             System.err.println();
         }
 
@@ -93,14 +111,26 @@ public class MainCmdLineHandler {
         return url;
     }
 
+    /**
+     *
+     * @return
+     */
     public DataLoader getDataLoader() {
         return dataLoader;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isLoadFromClasspath() {
         return useClasspath;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isLoadFromRestful() {
         return !useClasspath;
     }
@@ -119,6 +149,9 @@ public class MainCmdLineHandler {
         return isValid;
     }
 
+    /**
+     *
+     */
     public void doMain() {
         if (!isValid) {
             System.out.println("errors in setup / config");
@@ -137,13 +170,13 @@ public class MainCmdLineHandler {
             FinderService.CityCapitalResults results = db.findCityCapitalForState(state);
             if (results == null || (results.capital.isEmpty() & results.city.isEmpty())) {
                 LOGGER.warn("state=" + state + " NOT FOUND");
-                System.out.println("state=" + state + " NOT FOUND");
+//                System.out.println("state=" + state + " NOT FOUND");
             } else {
                 LOGGER.info("state = " + state + " : " + results.toString());
-                System.out.println("state = " + state + " : " + results.toString());
+//                System.out.println("state = " + state + " : " + results.toString());
             }
         } catch (NullPointerException | DatabaseException e) {
-            System.out.println(e.getLocalizedMessage());
+//            System.out.println(e.getLocalizedMessage());
             LOGGER.warn(e.getLocalizedMessage());
         }
     }

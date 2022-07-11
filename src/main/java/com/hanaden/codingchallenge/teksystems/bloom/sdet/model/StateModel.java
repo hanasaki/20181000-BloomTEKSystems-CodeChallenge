@@ -173,6 +173,10 @@ public class StateModel {
         return HashCodeBuilder.reflectionHashCode(this, "id");
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return new StringBuilder("State ")

@@ -37,12 +37,34 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 //@SpringBootTest(classes = Main.class)
 public class DataLoaderBaseTest {
 
+    /**
+     *
+     */
     protected static final Logger LOGGER = LoggerFactory.getLogger(DataLoaderBaseTest.class);
 
+    /**
+     *
+     */
     protected final String resourceFileName = "testDataSets/state.get.USA.all_actual.json";
+
+    /**
+     *
+     */
     protected final String resourceFileNameFail1 = "testDataSets/state.get.USA.all_parseIssue.1.json";
+
+    /**
+     *
+     */
     protected final String resourceFileNameFail2 = "testDataSets/state.get.USA.all_parseIssue.2.json";
+
+    /**
+     *
+     */
     protected final String resourceFileNameFail3 = "testDataSets/state.get.fail-badIndexNumber.json";
+
+    /**
+     *
+     */
     protected final String resourceFileNameFail4 = "testDataSets/state.get.USA.badAreaUnits.json";
 
     /**
