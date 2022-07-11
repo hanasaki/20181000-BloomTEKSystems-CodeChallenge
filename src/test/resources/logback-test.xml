@@ -20,6 +20,6 @@
     </logger>
 
     <root level="WARN">
-        <appender-ref ref="STDOUT" />
+        <!--<appender-ref ref="STDOUT" />-->
     </root>
 </configuration>
