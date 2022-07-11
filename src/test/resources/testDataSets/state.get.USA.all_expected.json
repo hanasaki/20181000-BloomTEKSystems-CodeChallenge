@@ -1,46 +1,46 @@
 {
-  "RestResponse" : {
-    "messages" : [ "Total [55] records found." ],
-    "result" : [ {
-      "id" : 16,
-      "country" : "USA",
-      "name" : "Kansas",
-      "abbr" : "KS",
-      "area" : "213100SKM",
-      "largest_city" : "Wichita",
-      "capital" : "Topeka"
-    }, {
-      "id" : 17,
-      "country" : "USA",
-      "name" : "Kentucky",
-      "abbr" : "KY",
-      "area" : "104656SKM",
-      "largest_city" : "Louisville",
-      "capital" : "Frankfort"
-    }, {
-      "id" : 18,
-      "country" : "USA",
-      "name" : "Louisiana",
-      "abbr" : "LA",
-      "area" : "135659SKM",
-      "largest_city" : "New Orleans",
-      "capital" : "Baton Rouge"
-    }, {
-      "id" : 20,
-      "country" : "USA",
-      "name" : "Maryland",
-      "abbr" : "MD",
-      "area" : "32131SKM",
-      "largest_city" : "Baltimore",
-      "capital" : "Annapolis"
-    }, {
-      "id" : 21,
-      "country" : "USA",
-      "name" : "Massachusetts",
-      "abbr" : "MA",
-      "area" : "7800SKM",
-      "largest_city" : "Boston",
-      "capital" : "Boston"
-    } ]
-  }
+    "RestResponse": {
+        "messages": ["Total [55] records found."],
+        "result": [{
+                "id": 16,
+                "country": "USA",
+                "name": "Kansas",
+                "abbr": "KS",
+                "area": "213100SKM",
+                "largest_city": "Wichita",
+                "capital": "Topeka"
+            }, {
+                "id": 17,
+                "country": "USA",
+                "name": "Kentucky",
+                "abbr": "KY",
+                "area": "104656SKM",
+                "largest_city": "Louisville",
+                "capital": "Frankfort"
+            }, {
+                "id": 18,
+                "country": "USA",
+                "name": "Louisiana",
+                "abbr": "LA",
+                "area": "135659SKM",
+                "largest_city": "New Orleans",
+                "capital": "Baton Rouge"
+            }, {
+                "id": 20,
+                "country": "USA",
+                "name": "Maryland",
+                "abbr": "MD",
+                "area": "32131SKM",
+                "largest_city": "Baltimore",
+                "capital": "Annapolis"
+            }, {
+                "id": 21,
+                "country": "USA",
+                "name": "Massachusetts",
+                "abbr": "MA",
+                "area": "7800SKM",
+                "largest_city": "Boston",
+                "capital": "Boston"
+            }]
+    }
 }

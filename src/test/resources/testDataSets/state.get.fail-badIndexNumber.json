@@ -1,29 +1,29 @@
 {
-  "RestResponse" : {
-    "messages" : [ "Total [55] records found." ],
-    "result" : [ {
-      "id" : 1,
-      "country" : "USA",
-      "name" : "Alabama",
-      "abbr" : "AL",
-      "area" : "135767SKM",
-      "largest_city" : "Birmingham",
-      "capital" : "Montgomery"
-    }, {
-      "country" : "USA",
-      "name" : "Alaska",
-      "abbr" : "AK",
-      "area" : "1723337SKM",
-      "largest_city" : "Anchorage",
-      "capital" : "Juneau"
-    }, {
-      "id" : 3,
-      "country" : "USA",
-      "name" : "Arizona",
-      "abbr" : "AZ",
-      "area" : "113594SKM",
-      "largest_city" : "Phoenix",
-      "capital" : "Phoenix"
-    } ]
-  }
+    "RestResponse": {
+        "messages": ["Total [55] records found."],
+        "result": [{
+                "id": 1,
+                "country": "USA",
+                "name": "Alabama",
+                "abbr": "AL",
+                "area": "135767SKM",
+                "largest_city": "Birmingham",
+                "capital": "Montgomery"
+            }, {
+                "country": "USA",
+                "name": "Alaska",
+                "abbr": "AK",
+                "area": "1723337SKM",
+                "largest_city": "Anchorage",
+                "capital": "Juneau"
+            }, {
+                "id": 3,
+                "country": "USA",
+                "name": "Arizona",
+                "abbr": "AZ",
+                "area": "113594SKM",
+                "largest_city": "Phoenix",
+                "capital": "Phoenix"
+            }]
+    }
 }
